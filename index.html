@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Josiah Ehrler - Developer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #121826;
+            color: #ffffff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1, h2, p {
+            margin: 0;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            color: #00d9ff;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            color: #00d9ff;
+        }
+
+        p {
+            font-size: 1.1rem;
+            color: #a6b1c2;
+            line-height: 1.6;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        ul li {
+            margin-bottom: 10px;
+            color: #c5d0de;
+        }
+
+        a {
+            color: #00d9ff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #1eb1ff;
+        }
+
+        .header {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .header img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 3px solid #00d9ff;
+            margin-bottom: 20px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .section {
+            background-color: #1e2a38;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .section h2 {
+            margin-bottom: 15px;
+        }
+
+        .section ul li strong {
+            color: #ffffff;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #00d9ff;
+            color: #121826;
+            font-weight: 600;
+            text-transform: uppercase;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background 0.3s ease;
+        }
+
+        .button:hover {
+            background: #1eb1ff;
+        }
+
+        .footer {
+            text-align: center;
+            margin: 40px 0 20px;
+            font-size: 0.9rem;
+            color: #a6b1c2;
+        }
+
+        /* Project Showcase */
+        .project-showcase {
+            margin-top: 40px;
+        }
+
+        .terminal-container {
+            background-color: #000;
+            color: #f00;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        #terminal {
+            height: 300px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            border-bottom: 2px solid #f00;
+            padding: 10px;
+        }
+
+        #input-container {
+            display: flex;
+            padding: 10px 0;
+        }
+
+        #command-input {
+            flex-grow: 1;
+            background: #111;
+            color: #f00;
+            border: 2px solid #f00;
+            padding: 10px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        #submit-button {
+            background: #f00;
+            color: #000;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        #submit-button:hover {
+            background: #b00;
+        }
+
+        .output {
+            color: #0f0;
+        }
+
+        .error {
+            color: #f00;
+        }
+
+        .info {
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <div class="header">
+            <img src="image.png" alt="Profile Image">
+            <h1>Josiah Ehrler</h1>
+            <p>Passionate software developer skilled in creating efficient, user-friendly solutions.</p>
+        </div>
+
+        <!-- Content Sections -->
+        <div class="grid">
+            <!-- About Me -->
+            <div class="section">
+                <h2>About Me</h2>
+                <p>Enjoys solving problems, collaborating with teams, and bringing ideas to life through code.</p>
+            </div>
+
+            <!-- Experience -->
+            <div class="section">
+                <h2>Experience</h2>
+                <ul>
+                    <li><strong>Freelance Work</strong> - Web Developer (Oct 2024 - Present)</li>
+                    <li><strong>Nasa Hunch</strong> - Student Developer (Oct 2024 - Present)</li>
+                    <li><strong>Hive Games</strong> - Volunteer Support (Dec 2023 - Present)</li>
+                </ul>
+            </div>
+
+            <!-- Skills -->
+            <div class="section">
+                <h2>Skills</h2>
+                <ul>
+                    <li>Web Development</li>
+                    <li>Software Development</li>
+                    <li>Game Design</li>
+                    <li>Graphic Design</li>
+                </ul>
+            </div>
+
+            <!-- Development -->
+            <div class="section">
+                <h2>Development</h2>
+                <ul>
+                    <li>Lua</li>
+                    <li>JavaScript</li>
+                    <li>Python</li>
+                    <li>HTML</li>
+                    <li>CSS</li>
+                    <li>C++</li>
+                    <li>C#</li>
+                </ul>
+            </div>
+
+            <!-- Contact -->
+            <div class="section">
+                <h2>Contact Me</h2>
+                <ul>
+                    <li>📞 <a href="tel:+7206003804">+7206003804</a></li>
+                    <li>📧 <a href="mailto:thepurplejr@gmail.com">thepurplejr@gmail.com</a></li>
+                    <li>🌐 <a href="https://www.jehrler.com" target="_blank">www.jehrler.com</a></li>
+                </ul>
+            </div>
+
+            <!-- Education -->
+            <div class="section">
+                <h2>Education</h2>
+                <ul>
+                    <li>Jefferson County Open Secondary (2022 - 2026)</li>
+                    <li>Warren Tech Central (2024 - 2026)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Project Showcase -->
+        <div class="project-showcase">
+            <h2>Project Showcase</h2>
+            <div class="terminal-container">
+                <div id="terminal"></div>
+                <div id="input-container">
+                    <input type="text" id="command-input" placeholder="Type your command here..." autofocus>
+                    <button id="submit-button">Run</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>© 2025 Josiah Ehrler. Built with ❤️ by Josiah Ehrler. <a href="https://www.jehrler.com" target="_blank">Visit My Website</a></p>
+    </div>
+
+    <script>
+        const terminal = document.getElementById('terminal');
+        const commandInput = document.getElementById('command-input');
+        const submitButton = document.getElementById('submit-button');
+
+        const commands = {
+            help: Available commands:\n- help: Show this help message\n- hack: Attempt to hack the system\n- status: Check system status\n- clear: Clear the terminal,
+            hack: "Hacking in progress...\nAccess Denied! Countermeasures detected.",
+            status: "System Status:\n- Firewalls: Active\n- Intrusion Detection: Enabled\n- Encryption: Maximum"
+        };
+
+        function executeCommand(command) {
+            const output = document.createElement('div');
+
+            if (command === 'clear') {
+                terminal.innerHTML = '';
+                return;
+            }
+
+            if (commands[command]) {
+                output.classList.add('output');
+                output.textContent = commands[command];
+            } else {
+                output.classList.add('error');
+                output.textContent = Unknown command: ${command}. Type 'help' for a list of commands.;
+            }
+
+            terminal.appendChild(output);
+            terminal.scrollTop = terminal.scrollHeight;
+        }
+
+        submitButton.addEventListener('click', () => {
+            const command = commandInput.value.trim();
+            if (command) {
+                const inputLine = document.createElement('div');
+                inputLine.textContent = > ${command};
+                terminal.appendChild(inputLine);
+
+                executeCommand(command);
+
+                commandInput.value = '';
+                commandInput.focus();
+            }
+        });
+
+        commandInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                submitButton.click();
+            }
+        });
+
+        // Welcome Message
+        terminal.innerHTML = <div class='info'>Welcome to the Hacker Terminal. Type 'help' to get started.</div>;
+    </script>
+</body>
