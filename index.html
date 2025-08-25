@@ -179,36 +179,72 @@
 
 
     <!-- Contact Section -->
-    <section id="contact" class="section">
-        <div class="container">
-            <h2 class="section-title">Get In Touch</h2>
-            <div class="contact-content">
-                <p>I'm currently available for freelance work and part-time opportunities. If you have a project you'd like to discuss or just want to say hello, feel free to reach out!</p>
-                <div class="contact-methods">
-                    <a href="mailto:josiah@jehrler.com" class="contact-link">
-                        <i class="fas fa-envelope"></i>
-                        <span>josiah@jehrler.com</span>
-                    </a>
-                    <a href="tel:+7206003804" class="contact-link">
-                        <i class="fas fa-phone"></i>
-                        <span>+1 (720) 600-3804</span>
-                    </a>
-                </div>
-                <form class="contact-form" netlify>
-                    <div class="form-group">
-                        <input type="text" name="name" placeholder="Your Name" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="email" name="email" placeholder="Your Email" required>
-                    </div>
-                    <div class="form-group">
-                        <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Send Message</button>
-                </form>
-            </div>
-        </div>
-    </section>
+<section id="contact" class="section">
+  <div class="container">
+    <h2 class="section-title">Get In Touch</h2>
+
+    <div class="contact-content">
+      <p>
+        I'm currently available for freelance work and part-time opportunities.
+        If you have a project you'd like to discuss or just want to say hello,
+        feel free to reach out!
+      </p>
+    </div>
+
+    <div class="contact-methods">
+      <a href="mailto:josiah@jehrler.com" class="contact-link">
+        <i class="fas fa-envelope"></i>
+        <span>josiah@jehrler.com</span>
+      </a>
+      <a href="tel:+17206003804" class="contact-link">
+        <i class="fas fa-phone"></i>
+        <span>+1 (720) 600-3804</span>
+      </a>
+    </div>
+
+    <form id="contact-form" class="contact-form">
+      <div class="form-group">
+        <input type="text" name="name" placeholder="Your Name" required />
+      </div>
+      <div class="form-group">
+        <input type="email" name="email" placeholder="Your Email" required />
+      </div>
+      <div class="form-group">
+        <textarea name="message" placeholder="Your Message" required></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">Send Message</button>
+    </form>
+  </div>
+</section>
+
+<script>
+  const form = document.getElementById("contact-form");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const data = {
+      name: form.name.value,
+      email: form.email.value,
+      message: form.message.value,
+    };
+
+    const workerUrl = "https://email-form.ehrler2007.workers.dev";
+
+    const response = await fetch(workerUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+
+    if (response.ok) {
+      alert("✅ Message sent!");
+      form.reset();
+    } else {
+      alert("❌ Something went wrong.");
+    }
+  });
+</script>
 
     <!-- Footer -->
     <footer class="footer">
