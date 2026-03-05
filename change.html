@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>calm · shift · sustain</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: hsl(232, 88%, 3%); /* dark navy base */
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+            color: #FFFFFF; /* pure white text */
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* canvas: pure grey particles on dark navy */
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none; /* keeps text interaction clean */
+            background: #0A1927; /* solid navy, no gradient, only particles provide life */
+        }
+
+        /* content layer: centered, calm spacing */
+        .scroll-container {
+            position: relative;
+            z-index: 5;
+            max-width: 780px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem 8rem 1.5rem;
+            text-align: center; /* everything centered — powerful simplicity */
+        }
+
+        /* first thing seen: huge, only white, subtle aura */
+        .hero-block {
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+        }
+
+        .hero-title {
+            font-size: clamp(3.2rem, 13vw, 6.5rem);
+            font-weight: 500; /* lighter weight for calm, but big presence */
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #FFFFFF;
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0), 0 0 10px rgba(255, 255, 255, 0);
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+        }
+
+        .hero-sub {
+            font-size: 1.5rem;
+            font-weight: 300;
+            color: #FFFFFF;
+            text-shadow: 0 0 20px rgba(255,255,255,0.3);
+            max-width: 650px;
+            opacity: 0.85;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            padding-top: 1.8rem;
+        }
+
+        /* cards: minimal, no heavy borders, just translucent white layer */
+        .section-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(2px);
+            -webkit-backdrop-filter: blur(2px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 48px;
+            padding: 2.8rem 2.2rem;
+            margin: 6rem 0;
+            box-shadow: 0 30px 50px -30px #00000080, 0 0 0 1px rgba(255, 255, 255, 0.02) inset;
+            transition: box-shadow 0.2s ease;
+        }
+
+        .section-card:hover {
+            box-shadow: 0 35px 60px -30px #000000, 0 0 0 1px rgba(255, 255, 255, 0.12) inset;
+        }
+
+        h2 {
+            font-size: 2.6rem;
+            font-weight: 350;
+            margin-bottom: 2rem;
+            letter-spacing: -0.5px;
+            color: #FFFFFF;
+            text-shadow: 0 0 18px rgba(255,255,255,0.3);
+            display: inline-block;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.2);
+        }
+
+        .fact-highlight {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 2rem 2rem;
+            border-radius: 36px;
+            margin: 2.8rem 0;
+            font-size: 1.4rem;
+            font-weight: 280;
+            color: #FFFFFF;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(2px);
+        }
+
+        .fact-highlight strong {
+            color: #FFFFFF;
+            font-weight: 450;
+            display: block;
+            font-size: 2rem;
+            margin-bottom: 0.7rem;
+            text-shadow: 0 0 25px rgba(255, 255, 255, 0.5);
+        }
+
+        .stat-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin: 2.8rem 0;
+            justify-content: center;
+        }
+
+        .stat-item {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 32px;
+            padding: 1.8rem 1.2rem;
+            flex: 1 1 170px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            font-weight: 280;
+            color: #FFFFFF;
+        }
+
+        .stat-number {
+            font-size: 2.8rem;
+            font-weight: 400;
+            color: #FFFFFF;
+            line-height: 1.2;
+            text-shadow: 0 0 30px rgba(255,255,255,0.4);
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2.5px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        p {
+            font-size: 1.3rem;
+            font-weight: 280;
+            margin: 1.8rem 0;
+            color: #FFFFFF;
+            opacity: 0.95;
+        }
+
+        .micro-particle-note {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+            text-align: center;
+            margin-top: 1.5rem;
+            font-style: italic;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 1.5rem;
+        }
+
+        .footer {
+            margin-top: 8rem;
+            text-align: center;
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.5);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 3rem;
+        }
+
+        .footer p {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* subtle scroll hint */
+        .scroll-hint {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.8rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            z-index: 15;
+            background: transparent;
+            padding: 0 12px;
+            backdrop-filter: blur(2px);
+        }
+
+        /* no extra colors — only white, grey particles, navy */
+        ul {
+            list-style: none;
+            font-size: 1.3rem;
+            color: #FFFFFF;
+            margin: 2rem 0;
+        }
+        li {
+            margin: 0.8rem 0;
+            opacity: 0.9;
+        }
+
+        @media (max-width: 600px) {
+            .section-card { padding: 2rem 1.2rem; }
+            h2 { font-size: 2rem; }
+            .hero-title { font-size: 4rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- particle canvas: pure grey on navy, no extra colors -->
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- centered calm content -->
+    <div class="scroll-container">
+        <!-- hero: first thing — YOU CAN MAKE A CHANGE. (only white, centered) -->
+        <div class="hero-block">
+            <div class="hero-title">YOU CAN MAKE A CHANGE.</div>
+            <div class="hero-sub">sustainability · nourishment · presence</div>
+        </div>
+
+        <!-- food & access - minimal white on navy -->
+        <div class="section-card">
+            <h2>real food, real access</h2>
+            <p>Healthy food is a foundation. Yet 2.3 billion people lacked adequate access in 2023. Local action rewires the system.</p>
+            <div class="fact-highlight">
+                <strong>+42%</strong>
+                urban agriculture could increase food security by nearly half. Rooftops, vertical farms, community plots.
+            </div>
+            <div class="stat-grid">
+                <div class="stat-item"><span class="stat-number">1 in 5</span> <span class="stat-label">children food insecure</span></div>
+                <div class="stat-item"><span class="stat-number">30%</span> <span class="stat-label">food wasted globally</span></div>
+                <div class="stat-item"><span class="stat-number">80%</span> <span class="stat-label">biodiversity loss / agriculture</span></div>
+            </div>
+            <p>Regenerative farming rebuilds soil and communities. Every dollar spent on local, organic veg cuts emissions and supports fair labor.</p>
+        </div>
+
+        <!-- polyester – still only white / grey, no alert color, just facts -->
+        <div class="section-card">
+            <h2>polyester: the plastic fiber</h2>
+            <p>Polyester accounts for 52% of global fiber production — made from oil, it lingers.</p>
+            <div class="fact-highlight">
+                <strong>9 million kg</strong>
+                microfibers from laundry enter oceans yearly — 50 billion bottle equivalents.
+            </div>
+            <div class="stat-grid">
+                <div class="stat-item"><span class="stat-number">~70M</span> <span class="stat-label">barrels oil / year</span></div>
+                <div class="stat-item"><span class="stat-number">200+</span> <span class="stat-label">years to decompose</span></div>
+                <div class="stat-item"><span class="stat-number">35%</span> <span class="stat-label">ocean microplastics = textiles</span></div>
+            </div>
+            <p>Washing one synthetic jacket can release 1,900 microfibers. These particles end up in fish, water, and you. <br>⇢ choose organic cotton, hemp, or wash with a Guppyfriend bag.</p>
+            <div class="micro-particle-note">microplastics found in 83% of tap water samples worldwide.</div>
+        </div>
+
+        <!-- soil & connection -->
+        <div class="section-card">
+            <h2>the ground beneath</h2>
+            <p>Both food and natural fibers start with soil. Conventional cotton uses 16% of insecticides — organic farming rebuilds carbon-rich earth.</p>
+            <div class="fact-highlight">
+                <strong>if global cropland transitioned to regenerative</strong>
+                we could sequester up to 100% of annual CO₂ emissions.
+            </div>
+            <div class="stat-grid">
+                <div class="stat-item"><span class="stat-number">24 bn tons</span> <span class="stat-label">fertile soil lost yearly</span></div>
+                <div class="stat-item"><span class="stat-number">3x</span> <span class="stat-label">more carbon in soil than atmosphere</span></div>
+            </div>
+            <p>Polyester is plastic — not crop. The same fossil fuels used for bottles are spun into shirts. We're eating and wearing oil.</p>
+        </div>
+
+        <!-- availability / action -->
+        <div class="section-card">
+            <h2>where change begins</h2>
+            <p>Access to sustainable food shouldn't be a zip code lottery. What shifts availability:</p>
+            <ul>
+                <li>✔ community refrigerators & food sharing</li>
+                <li>✔ farmers markets that accept SNAP / EBT</li>
+                <li>✔ urban permaculture & edible landscaping</li>
+                <li>✔ boycotting fast fashion / polyester blends</li>
+                <li>✔ requesting plastic-free packaging</li>
+            </ul>
+            <div class="fact-highlight" style="margin-top: 2rem;">
+                <strong>YOU CAN MAKE A CHANGE.</strong>
+                Every purchase, every wash, every plate — a signal. If 10% shift toward sustainable options, it redirects $3.4 trillion.
+            </div>
+        </div>
+
+        <!-- footer / calm note -->
+        <div class="footer">
+            <p>particles of light · particles of plastic · we decide</p>
+            <p style="font-size: 0.85rem;">sources: FAO, Ellen MacArthur Foundation, IUCN, Our World in Data</p>
+        </div>
+    </div>
+
+    <!-- fixed scroll hint (barely visible) -->
+    <div class="scroll-hint">scroll</div>
+
+    <!-- particle script: only grey shades on navy, calm drift -->
+    <script>
+        (function() {
+            const canvas = document.getElementById('particle-canvas');
+            const ctx = canvas.getContext('2d');
+            let width, height;
+            let particles = [];
+            const PARTICLE_COUNT = 75; // fewer, calmer
+
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * width;
+                    this.y = Math.random() * height;
+                    this.vx = (Math.random() - 0.5) * 0.06; // very slow drift
+                    this.vy = (Math.random() - 0.5) * 0.04;
+                    this.radius = Math.random() * 3 + 1.2;
+                    // only grey tones (rgb triplets between 140-220)
+                    const g = 160 + Math.random() * 60; // 160–220
+                    this.color = `rgba(${g}, ${g}, ${g}, ${Math.random() * 0.5 + 0.3})`; // grey particles
+                }
+                update() {
+                    this.x += this.vx;
+                    this.y += this.vy;
+                    // gentle wrap
+                    if (this.x < 0) this.x = width;
+                    if (this.x > width) this.x = 0;
+                    if (this.y < 0) this.y = height;
+                    if (this.y > height) this.y = 0;
+                }
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = this.color;
+                    ctx.shadowColor = '#FFFFFF'; // white aura for particles
+                    ctx.shadowBlur = 9;
+                    ctx.fill();
+                }
+            }
+
+            function initParticles() {
+                particles = [];
+                for (let i = 0; i < PARTICLE_COUNT; i++) {
+                    particles.push(new Particle());
+                }
+            }
+
+            function resizeCanvas() {
+                width = window.innerWidth;
+                height = window.innerHeight;
+                canvas.width = width;
+                canvas.height = height;
+                initParticles();
+            }
+
+            // faint lines only when very close (calm web)
+            function drawLines() {
+                ctx.shadowBlur = 0;
+                for (let i = 0; i < particles.length; i++) {
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const dx = particles[i].x - particles[j].x;
+                        const dy = particles[i].y - particles[j].y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+                        if (distance < 90) {
+                            ctx.beginPath();
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.strokeStyle = `rgba(200, 200, 200, ${0.1 * (1 - distance/100)})`; // grey lines
+                            ctx.stroke();
+                        }
+                    }
+                }
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, width, height);
+                // background is solid navy (already set by CSS, but we fill to be sure)
+                ctx.fillStyle = '#0A1927';
+                ctx.fillRect(0, 0, width, height);
+                drawLines();
+                for (let p of particles) {
+                    p.update();
+                    p.draw();
+                }
+                requestAnimationFrame(animate);
+            }
+
+            window.addEventListener('resize', () => {
+                resizeCanvas();
+            });
+
+            resizeCanvas();
+            animate();
+
+            // optional gentle mouse influence (barely there)
+            window.addEventListener('mousemove', (e) => {
+                if (!particles.length) return;
+                const mouseX = e.clientX;
+                const mouseY = e.clientY;
+                for (let p of particles) {
+                    const dx = p.x - mouseX;
+                    const dy = p.y - mouseY;
+                    const dist = Math.sqrt(dx*dx + dy*dy);
+                    if (dist < 110) {
+                        const angle = Math.atan2(dy, dx);
+                        const force = (110 - dist) / 800; // very subtle
+                        p.vx += Math.cos(angle) * force * 0.3;
+                        p.vy += Math.sin(angle) * force * 0.3;
+                    }
+                }
+            });
+        })();
+    </script>
+</body>
+</html>
