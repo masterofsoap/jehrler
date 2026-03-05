@@ -3,23 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>calm · shift · sustain</title>
+    <title>dark + play · shift</title>
     <style>
+        /* ABSOLUTE MINIMAL – DARKER THAN DARK */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        body {
-            background-color: hsl(232, 88%, 3%); /* dark navy base */
-            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
-            color: #FFFFFF; /* pure white text */
-            line-height: 1.6;
-            overflow-x: hidden;
+        html, body {
+            background-color: #020812; /* almost black navy – deepest */
+            width: 100%;
+            min-height: 100%;
         }
 
-        /* canvas: pure grey particles on dark navy */
+        body {
+            font-family: 'Inter', 'Helvetica Neue', sans-serif;
+            color: #ffffff;
+            line-height: 1.5;
+            background-color: #020812; /* guarantee */
+        }
+
+        /* canvas: solid dark background, grey particles (no glow, no blur) */
         #particle-canvas {
             position: fixed;
             top: 0;
@@ -27,316 +33,275 @@
             width: 100%;
             height: 100%;
             z-index: 0;
-            pointer-events: none; /* keeps text interaction clean */
-            background: #0A1927; /* solid navy, no gradient, only particles provide life */
+            pointer-events: none; /* keeps interaction but mouse events pass through to canvas? we need canvas to get mousemove, but we attach listener to window anyway */
+            background-color: #020812; /* the only background */
+            display: block;
         }
 
-        /* content layer: centered, calm spacing */
+        /* content: strictly centered, white text only */
         .scroll-container {
             position: relative;
             z-index: 5;
-            max-width: 780px;
+            max-width: 760px;
             margin: 0 auto;
-            padding: 3rem 1.5rem 8rem 1.5rem;
-            text-align: center; /* everything centered — powerful simplicity */
+            padding: 2.5rem 1.5rem 6rem 1.5rem;
+            text-align: center;
         }
 
-        /* first thing seen: huge, only white, subtle aura */
+        /* first thing: huge, pure white, NO shadow/glow */
         .hero-block {
             min-height: 90vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 1rem;
         }
 
         .hero-title {
-            font-size: clamp(3.2rem, 13vw, 6.5rem);
-            font-weight: 500; /* lighter weight for calm, but big presence */
-            letter-spacing: 2px;
+            font-size: clamp(3rem, 14vw, 6rem);
+            font-weight: 450; /* medium-light, still strong */
+            letter-spacing: 1px;
             text-transform: uppercase;
-            color: #FFFFFF;
-            text-shadow: 0 0 30px rgba(255, 255, 255, 0), 0 0 10px rgba(255, 255, 255, 0);
-            margin-bottom: 1.5rem;
-            line-height: 1.1;
+            color: #ffffff;
+            margin-bottom: 1.2rem;
+            line-height: 1;
+            /* no text shadow, no glow */
         }
 
         .hero-sub {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-weight: 300;
-            color: #FFFFFF;
-            text-shadow: 0 0 20px rgba(255,255,255,0.3);
-            max-width: 650px;
-            opacity: 0.85;
-            border-top: 1px solid rgba(255, 255, 255, 0.2);
-            padding-top: 1.8rem;
+            color: #ffffff;
+            opacity: 0.75; /* only subtle dim */
+            max-width: 600px;
+            border-top: 1px solid rgba(255,255,255,0.15);
+            padding-top: 1.6rem;
         }
 
-        /* cards: minimal, no heavy borders, just translucent white layer */
+        /* cards: barely there, just a hint of structure */
         .section-card {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(2px);
-            -webkit-backdrop-filter: blur(2px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 48px;
-            padding: 2.8rem 2.2rem;
-            margin: 6rem 0;
-            box-shadow: 0 30px 50px -30px #00000080, 0 0 0 1px rgba(255, 255, 255, 0.02) inset;
-            transition: box-shadow 0.2s ease;
-        }
-
-        .section-card:hover {
-            box-shadow: 0 35px 60px -30px #000000, 0 0 0 1px rgba(255, 255, 255, 0.12) inset;
+            background: rgba(255, 255, 255, 0.02); /* almost invisible */
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 32px;
+            padding: 2.5rem 2rem;
+            margin: 5rem 0;
+            /* no shadow, no glow, no hover effects */
         }
 
         h2 {
-            font-size: 2.6rem;
+            font-size: 2.4rem;
             font-weight: 350;
             margin-bottom: 2rem;
-            letter-spacing: -0.5px;
-            color: #FFFFFF;
-            text-shadow: 0 0 18px rgba(255,255,255,0.3);
+            color: #ffffff;
+            letter-spacing: -0.3px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
             display: inline-block;
-            padding-bottom: 0.5rem;
-            border-bottom: 1px dashed rgba(255, 255, 255, 0.2);
+            padding-bottom: 0.4rem;
         }
 
         .fact-highlight {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 2rem 2rem;
-            border-radius: 36px;
-            margin: 2.8rem 0;
-            font-size: 1.4rem;
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 1.8rem 1.8rem;
+            border-radius: 28px;
+            margin: 2.5rem 0;
+            font-size: 1.3rem;
             font-weight: 280;
-            color: #FFFFFF;
-            box-shadow: 0 0 30px rgba(255, 255, 255, 0.02);
-            backdrop-filter: blur(2px);
+            color: #ffffff;
         }
 
         .fact-highlight strong {
-            color: #FFFFFF;
             font-weight: 450;
             display: block;
             font-size: 2rem;
-            margin-bottom: 0.7rem;
-            text-shadow: 0 0 25px rgba(255, 255, 255, 0.5);
+            margin-bottom: 0.6rem;
+            color: #ffffff;
         }
 
         .stat-grid {
             display: flex;
             flex-wrap: wrap;
-            gap: 1.5rem;
-            margin: 2.8rem 0;
+            gap: 1.2rem;
+            margin: 2.5rem 0;
             justify-content: center;
         }
 
         .stat-item {
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 32px;
-            padding: 1.8rem 1.2rem;
-            flex: 1 1 170px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            text-align: center;
-            font-weight: 280;
-            color: #FFFFFF;
+            background: rgba(255, 255, 255, 0.01);
+            border-radius: 28px;
+            padding: 1.5rem 1rem;
+            flex: 1 1 150px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            color: #ffffff;
         }
 
         .stat-number {
-            font-size: 2.8rem;
+            font-size: 2.5rem;
             font-weight: 400;
-            color: #FFFFFF;
-            line-height: 1.2;
-            text-shadow: 0 0 30px rgba(255,255,255,0.4);
+            color: #ffffff;
         }
 
         .stat-label {
-            font-size: 1rem;
+            font-size: 0.9rem;
             text-transform: uppercase;
-            letter-spacing: 2.5px;
-            color: rgba(255, 255, 255, 0.8);
+            letter-spacing: 2px;
+            color: rgba(255,255,255,0.7);
         }
 
         p {
-            font-size: 1.3rem;
-            font-weight: 280;
-            margin: 1.8rem 0;
-            color: #FFFFFF;
-            opacity: 0.95;
+            font-size: 1.2rem;
+            font-weight: 270;
+            margin: 1.5rem 0;
+            color: #ffffff;
+            opacity: 0.9;
         }
 
         .micro-particle-note {
-            font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.5);
             text-align: center;
             margin-top: 1.5rem;
-            font-style: italic;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: 1px solid rgba(255,255,255,0.06);
             padding-top: 1.5rem;
         }
 
         .footer {
-            margin-top: 8rem;
-            text-align: center;
-            font-size: 1rem;
-            color: rgba(255, 255, 255, 0.5);
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            padding-top: 3rem;
+            margin-top: 6rem;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            padding-top: 2.5rem;
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.45);
         }
 
-        .footer p {
-            font-size: 1rem;
-            color: rgba(255, 255, 255, 0.6);
-        }
-
-        /* subtle scroll hint */
         .scroll-hint {
             position: fixed;
             bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
-            color: rgba(255, 255, 255, 0.4);
-            font-size: 0.8rem;
-            letter-spacing: 4px;
+            color: rgba(255,255,255,0.25);
+            font-size: 0.7rem;
+            letter-spacing: 3px;
             text-transform: uppercase;
-            z-index: 15;
-            background: transparent;
-            padding: 0 12px;
-            backdrop-filter: blur(2px);
+            z-index: 10;
         }
 
-        /* no extra colors — only white, grey particles, navy */
         ul {
             list-style: none;
-            font-size: 1.3rem;
-            color: #FFFFFF;
+            font-size: 1.2rem;
+            color: #ffffff;
             margin: 2rem 0;
         }
         li {
-            margin: 0.8rem 0;
-            opacity: 0.9;
+            margin: 0.6rem 0;
+            opacity: 0.85;
         }
 
         @media (max-width: 600px) {
             .section-card { padding: 2rem 1.2rem; }
             h2 { font-size: 2rem; }
-            .hero-title { font-size: 4rem; }
+            .hero-title { font-size: 3.8rem; }
         }
     </style>
 </head>
 <body>
 
-    <!-- particle canvas: pure grey on navy, no extra colors -->
     <canvas id="particle-canvas"></canvas>
 
-    <!-- centered calm content -->
     <div class="scroll-container">
-        <!-- hero: first thing — YOU CAN MAKE A CHANGE. (only white, centered) -->
+        <!-- FIRST THING: only white, no effects -->
         <div class="hero-block">
             <div class="hero-title">YOU CAN MAKE A CHANGE.</div>
-            <div class="hero-sub">sustainability · nourishment · presence</div>
+            <div class="hero-sub">sustainability · food · polyester</div>
         </div>
 
-        <!-- food & access - minimal white on navy -->
+        <!-- food section -->
         <div class="section-card">
             <h2>real food, real access</h2>
-            <p>Healthy food is a foundation. Yet 2.3 billion people lacked adequate access in 2023. Local action rewires the system.</p>
+            <p>2.3 billion people lacked adequate food in 2023. local action rewires the system.</p>
             <div class="fact-highlight">
                 <strong>+42%</strong>
-                urban agriculture could increase food security by nearly half. Rooftops, vertical farms, community plots.
+                urban agriculture could increase food security by nearly half.
             </div>
             <div class="stat-grid">
                 <div class="stat-item"><span class="stat-number">1 in 5</span> <span class="stat-label">children food insecure</span></div>
-                <div class="stat-item"><span class="stat-number">30%</span> <span class="stat-label">food wasted globally</span></div>
-                <div class="stat-item"><span class="stat-number">80%</span> <span class="stat-label">biodiversity loss / agriculture</span></div>
+                <div class="stat-item"><span class="stat-number">30%</span> <span class="stat-label">food wasted</span></div>
+                <div class="stat-item"><span class="stat-number">80%</span> <span class="stat-label">biodiversity loss</span></div>
             </div>
-            <p>Regenerative farming rebuilds soil and communities. Every dollar spent on local, organic veg cuts emissions and supports fair labor.</p>
         </div>
 
-        <!-- polyester – still only white / grey, no alert color, just facts -->
+        <!-- polyester -->
         <div class="section-card">
-            <h2>polyester: the plastic fiber</h2>
-            <p>Polyester accounts for 52% of global fiber production — made from oil, it lingers.</p>
+            <h2>polyester</h2>
+            <p>52% of global fiber production = oil-based plastic.</p>
             <div class="fact-highlight">
                 <strong>9 million kg</strong>
-                microfibers from laundry enter oceans yearly — 50 billion bottle equivalents.
+                microfibers from laundry enter oceans yearly.
             </div>
             <div class="stat-grid">
-                <div class="stat-item"><span class="stat-number">~70M</span> <span class="stat-label">barrels oil / year</span></div>
+                <div class="stat-item"><span class="stat-number">70M</span> <span class="stat-label">barrels oil/yr</span></div>
                 <div class="stat-item"><span class="stat-number">200+</span> <span class="stat-label">years to decompose</span></div>
-                <div class="stat-item"><span class="stat-number">35%</span> <span class="stat-label">ocean microplastics = textiles</span></div>
+                <div class="stat-item"><span class="stat-number">35%</span> <span class="stat-label">ocean microplastics</span></div>
             </div>
-            <p>Washing one synthetic jacket can release 1,900 microfibers. These particles end up in fish, water, and you. <br>⇢ choose organic cotton, hemp, or wash with a Guppyfriend bag.</p>
-            <div class="micro-particle-note">microplastics found in 83% of tap water samples worldwide.</div>
+            <div class="micro-particle-note">microplastics in 83% of tap water</div>
         </div>
 
-        <!-- soil & connection -->
+        <!-- soil & systems -->
         <div class="section-card">
-            <h2>the ground beneath</h2>
-            <p>Both food and natural fibers start with soil. Conventional cotton uses 16% of insecticides — organic farming rebuilds carbon-rich earth.</p>
+            <h2>soil</h2>
+            <p>Regenerative farming could sequester up to 100% of annual CO₂ emissions.</p>
             <div class="fact-highlight">
-                <strong>if global cropland transitioned to regenerative</strong>
-                we could sequester up to 100% of annual CO₂ emissions.
+                <strong>24 billion tons</strong>
+                fertile soil lost yearly.
             </div>
-            <div class="stat-grid">
-                <div class="stat-item"><span class="stat-number">24 bn tons</span> <span class="stat-label">fertile soil lost yearly</span></div>
-                <div class="stat-item"><span class="stat-number">3x</span> <span class="stat-label">more carbon in soil than atmosphere</span></div>
-            </div>
-            <p>Polyester is plastic — not crop. The same fossil fuels used for bottles are spun into shirts. We're eating and wearing oil.</p>
         </div>
 
         <!-- availability / action -->
         <div class="section-card">
-            <h2>where change begins</h2>
-            <p>Access to sustainable food shouldn't be a zip code lottery. What shifts availability:</p>
+            <h2>availability</h2>
             <ul>
-                <li>✔ community refrigerators & food sharing</li>
-                <li>✔ farmers markets that accept SNAP / EBT</li>
-                <li>✔ urban permaculture & edible landscaping</li>
-                <li>✔ boycotting fast fashion / polyester blends</li>
-                <li>✔ requesting plastic-free packaging</li>
+                <li>✔ community fridges & food sharing</li>
+                <li>✔ farmers markets accept SNAP/EBT</li>
+                <li>✔ boycott fast fashion / polyester</li>
             </ul>
-            <div class="fact-highlight" style="margin-top: 2rem;">
+            <div class="fact-highlight">
                 <strong>YOU CAN MAKE A CHANGE.</strong>
-                Every purchase, every wash, every plate — a signal. If 10% shift toward sustainable options, it redirects $3.4 trillion.
+                shifting 10% redirects $3.4 trillion.
             </div>
         </div>
 
-        <!-- footer / calm note -->
         <div class="footer">
-            <p>particles of light · particles of plastic · we decide</p>
-            <p style="font-size: 0.85rem;">sources: FAO, Ellen MacArthur Foundation, IUCN, Our World in Data</p>
+            <p>particles of plastic · particles of light</p>
         </div>
     </div>
 
-    <!-- fixed scroll hint (barely visible) -->
     <div class="scroll-hint">scroll</div>
 
-    <!-- particle script: only grey shades on navy, calm drift -->
     <script>
         (function() {
             const canvas = document.getElementById('particle-canvas');
             const ctx = canvas.getContext('2d');
             let width, height;
             let particles = [];
-            const PARTICLE_COUNT = 75; // fewer, calmer
+            const PARTICLE_COUNT = 60; // comfortable amount
 
             class Particle {
                 constructor() {
                     this.x = Math.random() * width;
                     this.y = Math.random() * height;
-                    this.vx = (Math.random() - 0.5) * 0.06; // very slow drift
-                    this.vy = (Math.random() - 0.5) * 0.04;
-                    this.radius = Math.random() * 3 + 1.2;
-                    // only grey tones (rgb triplets between 140-220)
-                    const g = 160 + Math.random() * 60; // 160–220
-                    this.color = `rgba(${g}, ${g}, ${g}, ${Math.random() * 0.5 + 0.3})`; // grey particles
+                    // very slow natural drift
+                    this.vx = (Math.random() - 0.5) * 0.04;
+                    this.vy = (Math.random() - 0.5) * 0.03;
+                    this.radius = Math.random() * 2.4 + 0.8;
+                    // only grey – solid, no transparency
+                    const g = 130 + Math.random() * 80; // 130–210 grey
+                    this.color = `rgb(${g}, ${g}, ${g})`;
+                    // base speed storage for reset? not needed
                 }
                 update() {
                     this.x += this.vx;
                     this.y += this.vy;
-                    // gentle wrap
+
+                    // wrap around edges
                     if (this.x < 0) this.x = width;
                     if (this.x > width) this.x = 0;
                     if (this.y < 0) this.y = height;
@@ -346,8 +311,8 @@
                     ctx.beginPath();
                     ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
                     ctx.fillStyle = this.color;
-                    ctx.shadowColor = '#FFFFFF'; // white aura for particles
-                    ctx.shadowBlur = 9;
+                    // NO SHADOW, NO GLOW
+                    ctx.shadowBlur = 0;
                     ctx.fill();
                 }
             }
@@ -367,31 +332,11 @@
                 initParticles();
             }
 
-            // faint lines only when very close (calm web)
-            function drawLines() {
-                ctx.shadowBlur = 0;
-                for (let i = 0; i < particles.length; i++) {
-                    for (let j = i + 1; j < particles.length; j++) {
-                        const dx = particles[i].x - particles[j].x;
-                        const dy = particles[i].y - particles[j].y;
-                        const distance = Math.sqrt(dx * dx + dy * dy);
-                        if (distance < 90) {
-                            ctx.beginPath();
-                            ctx.moveTo(particles[i].x, particles[i].y);
-                            ctx.lineTo(particles[j].x, particles[j].y);
-                            ctx.strokeStyle = `rgba(200, 200, 200, ${0.1 * (1 - distance/100)})`; // grey lines
-                            ctx.stroke();
-                        }
-                    }
-                }
-            }
-
             function animate() {
+                // clear with transparency – background is solid CSS
                 ctx.clearRect(0, 0, width, height);
-                // background is solid navy (already set by CSS, but we fill to be sure)
-                ctx.fillStyle = '#0A1927';
-                ctx.fillRect(0, 0, width, height);
-                drawLines();
+                
+                // no lines, no extra stuff – just particles
                 for (let p of particles) {
                     p.update();
                     p.draw();
@@ -399,14 +344,7 @@
                 requestAnimationFrame(animate);
             }
 
-            window.addEventListener('resize', () => {
-                resizeCanvas();
-            });
-
-            resizeCanvas();
-            animate();
-
-            // optional gentle mouse influence (barely there)
+            // INTERACTION: fun subtle mouse repulsion (but keeps dark minimal vibe)
             window.addEventListener('mousemove', (e) => {
                 if (!particles.length) return;
                 const mouseX = e.clientX;
@@ -415,14 +353,41 @@
                     const dx = p.x - mouseX;
                     const dy = p.y - mouseY;
                     const dist = Math.sqrt(dx*dx + dy*dy);
-                    if (dist < 110) {
+                    if (dist < 100) {
                         const angle = Math.atan2(dy, dx);
-                        const force = (110 - dist) / 800; // very subtle
-                        p.vx += Math.cos(angle) * force * 0.3;
-                        p.vy += Math.sin(angle) * force * 0.3;
+                        const force = (100 - dist) / 280; // gentle push
+                        p.vx += Math.cos(angle) * force * 0.6;
+                        p.vy += Math.sin(angle) * force * 0.6;
                     }
                 }
             });
+
+            // also add tiny bit of friction to avoid endless speed (keep it calm)
+            function applyFriction() {
+                for (let p of particles) {
+                    p.vx *= 0.998;
+                    p.vy *= 0.998;
+                }
+            }
+
+            // integrate friction into animation loop
+            function animateWithFriction() {
+                ctx.clearRect(0, 0, width, height);
+                for (let p of particles) {
+                    p.update();
+                    p.draw();
+                }
+                applyFriction();
+                requestAnimationFrame(animateWithFriction);
+            }
+
+            window.addEventListener('resize', () => {
+                resizeCanvas();
+            });
+
+            resizeCanvas();
+            // use the friction version for smoother calm
+            animateWithFriction();
         })();
     </script>
 </body>
