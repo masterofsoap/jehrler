@@ -1,121 +1,285 @@
-<!DOCTYPE html>
+
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Josiah Ehrler | Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Josiah Ehrler | AI & Web Developer Portfolio</title>
+  <!-- Tailwind + Google Fonts + AOS -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
   <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
   <style>
+    * { font-family: 'Inter', sans-serif; }
     html { scroll-behavior: smooth; }
-    .glass { backdrop-filter: blur(12px); background: rgba(15, 23, 42, 0.6); }
+    .glass-card {
+      backdrop-filter: blur(14px);
+      background: rgba(15, 25, 45, 0.55);
+      border: 1px solid rgba(45, 212, 191, 0.2);
+      transition: all 0.25s ease;
+    }
+    .glass-card:hover {
+      border-color: rgba(45, 212, 191, 0.6);
+      background: rgba(20, 30, 55, 0.7);
+      transform: translateY(-2px);
+    }
+    .gradient-border-b {
+      border-image: linear-gradient(95deg, #2dd4bf, #1e3a8a) 1;
+      border-bottom: 2px solid transparent;
+    }
+    .hero-bg {
+      background: radial-gradient(circle at 20% 30%, rgba(45,212,191,0.08) 0%, rgba(2,6,23,0.95) 90%);
+    }
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0f172a;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #2dd4bf;
+      border-radius: 8px;
+    }
   </style>
 </head>
-<body class="bg-gradient-to-br from-slate-950 via-slate-900 to-black text-white font-sans">
+<body class="bg-slate-950 text-slate-200 overflow-x-hidden">
 
-  <!-- Hero Section -->
-  <section class="min-h-screen flex flex-col justify-center items-center text-center px-6">
-    <h1 class="text-5xl md:text-6xl font-extrabold tracking-tight" data-aos="fade-down">
-      Josiah Ehrler
-    </h1>
-    <p class="mt-4 text-xl text-teal-400 font-semibold" data-aos="fade-up">
-      Software & Web Developer
-    </p>
-
-    <div class="mt-6 text-gray-300 text-sm space-y-2" data-aos="fade-up" data-aos-delay="200">
-      <p>jehrler2007@gmail.com</p>
-      <p>www.jehrler.com</p>
-      <p>+1 (720) 600 3804</p>
+  <!-- HERO SECTION with integrated info -->
+  <section class="hero-bg min-h-screen flex flex-col justify-center items-center text-center px-6 relative overflow-hidden">
+    <div class="absolute inset-0 opacity-30 pointer-events-none" style="background-image: radial-gradient(#2dd4bf20 1px, transparent 1px); background-size: 28px 28px;"></div>
+    <div class="z-10 max-w-4xl" data-aos="fade-up">
+      <div class="inline-block px-4 py-1 rounded-full bg-teal-500/10 border border-teal-500/30 text-teal-300 text-sm font-medium mb-5 backdrop-blur-sm">
+        ✦ SOFTWARE, AI & WEB DEVELOPER ✦
+      </div>
+      <h1 class="text-6xl md:text-7xl font-extrabold tracking-tight bg-gradient-to-r from-white via-teal-100 to-teal-300 bg-clip-text text-transparent">Josiah Ehrler</h1>
+      <p class="mt-5 text-xl text-teal-300 font-semibold tracking-wide">Building intelligent systems for space & beyond</p>
+      <div class="mt-7 flex flex-wrap justify-center gap-x-8 gap-y-2 text-slate-300 text-base font-mono">
+        <span class="flex items-center gap-2">📧 ehrlcr2007@gmail.com</span>
+        <span class="flex items-center gap-2">🌐 www.jehrlcr.com</span>
+        <span class="flex items-center gap-2">📞 +1 (720) 600 3804</span>
+      </div>
+      <div class="mt-10 flex flex-wrap gap-4 justify-center">
+        <a href="#experience" class="px-7 py-3 bg-teal-600/80 hover:bg-teal-500 text-white font-semibold rounded-full shadow-xl transition-all duration-300 backdrop-blur-sm border border-teal-400/40">View Experience</a>
+        <a href="#projects" class="px-7 py-3 bg-slate-800/70 hover:bg-slate-700 text-teal-300 font-semibold rounded-full shadow-xl transition-all duration-300 backdrop-blur-sm border border-slate-600">Explore Projects</a>
+      </div>
     </div>
-
-    <a href="#projects" class="mt-10 px-6 py-3 bg-teal-500 text-black font-semibold rounded-2xl shadow-xl hover:bg-teal-400 transition-all duration-300">
-      View Projects
-    </a>
+    <div class="absolute bottom-8 left-0 right-0 text-center text-slate-500 text-xs animate-pulse">
+      scroll ↓
+    </div>
   </section>
 
-  <!-- Professional Experience -->
-  <section class="max-w-6xl mx-auto py-20 px-6" id="experience">
-    <h2 class="text-3xl font-bold mb-10 border-b border-teal-500 pb-2" data-aos="fade-right">Professional Experience</h2>
+  <!-- PROFESSIONAL EXPERIENCE (fully integrated latest info from resume) -->
+  <section class="max-w-6xl mx-auto py-24 px-6" id="experience">
+    <div class="flex items-center gap-3 mb-10" data-aos="fade-right">
+      <div class="h-10 w-1.5 bg-teal-500 rounded-full"></div>
+      <h2 class="text-3xl md:text-4xl font-bold tracking-tight">Professional Experience</h2>
+    </div>
 
     <div class="grid md:grid-cols-2 gap-8">
-      <div class="glass p-6 rounded-2xl shadow-xl" data-aos="fade-up">
-        <h3 class="text-xl font-semibold">NASA Hunch</h3>
-        <p class="text-sm text-teal-400">Software Developer | Oct 2024 - Present</p>
-        <ul class="mt-4 space-y-2 text-gray-300 text-sm list-disc list-inside">
-          <li>Developed a strong front-end with SQL database support.</li>
-          <li>Engineered automated email alerts for supply levels & expirations.</li>
-          <li>Styled a full-featured mobile app version with table support.</li>
+      <!-- NASA & NASA Hunch -->
+      <div class="glass-card rounded-2xl p-6 shadow-2xl" data-aos="fade-up" data-aos-delay="0">
+        <div class="flex justify-between items-start flex-wrap gap-2 border-b border-teal-500/30 pb-3 mb-4">
+          <h3 class="text-xl font-bold text-white">NASA & NASA Hunch</h3>
+          <span class="text-xs bg-teal-950/70 px-3 py-1 rounded-full text-teal-300">Oct 2024 – Present</span>
+        </div>
+        <p class="text-teal-400 text-sm font-medium mb-3">Software Developer · Artemis II & Gateway Missions</p>
+        <ul class="space-y-2.5 text-sm text-slate-300 list-disc list-inside marker:text-teal-400">
+          <li>Built Python + PostgreSQL medical inventory system supporting Artemis II & Gateway mission workflows, ensuring readiness for deep-space operations.</li>
+          <li>Designed secure inventory tracking with NFC integration and fine-grained role-based access controls (RBAC).</li>
+          <li>Developed AI-powered diagnostic assistant trained on ~400 hours of medical data — inventory analysis & preliminary classification with <strong class="text-teal-300">80%+ test accuracy</strong>.</li>
+          <li>Engineered automated email alerts for supply levels & expiration tracking, plus responsive front-end dashboards.</li>
         </ul>
       </div>
 
-      <div class="glass p-6 rounded-2xl shadow-xl" data-aos="fade-up" data-aos-delay="150">
-        <h3 class="text-xl font-semibold">WaveClient</h3>
-        <p class="text-sm text-teal-400">Software Developer | Jan 2023 - Dec 2024</p>
-        <ul class="mt-4 space-y-2 text-gray-300 text-sm list-disc list-inside">
-          <li>Built a reliable multi-platform API.</li>
-          <li>Designed a clean, customizable front-end experience.</li>
-          <li>Developed reusable modules for application functionality.</li>
+      <!-- Independent Gaming Network -->
+      <div class="glass-card rounded-2xl p-6 shadow-2xl" data-aos="fade-up" data-aos-delay="100">
+        <div class="flex justify-between items-start flex-wrap gap-2 border-b border-teal-500/30 pb-3 mb-4">
+          <h3 class="text-xl font-bold text-white">Independent Gaming Network</h3>
+          <span class="text-xs bg-teal-950/70 px-3 py-1 rounded-full text-teal-300">Jan 2022 – Dec 2025</span>
+        </div>
+        <p class="text-teal-400 text-sm font-medium mb-3">Founder &amp; Operator</p>
+        <ul class="space-y-2.5 text-sm text-slate-300 list-disc list-inside marker:text-teal-400">
+          <li>Built and scaled a multi-server gaming network, managing operations, staffing, and aggressive growth strategy.</li>
+          <li>Led acquisition and integration of competitor servers, expanding player base and consolidating infrastructure seamlessly.</li>
+          <li>Oversaw paid staff + volunteer teams, improving retention, community engagement, and operational efficiency.</li>
+          <li><strong>Scaled to 5 servers (5,000–20,000 players each)</strong> with flagship server reaching <strong>4.4M lifetime logins</strong>.</li>
+        </ul>
+      </div>
+
+      <!-- Gold Crown Career Pathways & Apex Park -->
+      <div class="glass-card rounded-2xl p-6 shadow-2xl" data-aos="fade-up" data-aos-delay="150">
+        <div class="flex justify-between items-start flex-wrap gap-2 border-b border-teal-500/30 pb-3 mb-4">
+          <h3 class="text-xl font-bold text-white">Gold Crown</h3>
+          <span class="text-xs bg-teal-950/70 px-3 py-1 rounded-full text-teal-300">Career Pathways Program</span>
+        </div>
+        <ul class="space-y-2 text-sm text-slate-300 list-disc list-inside marker:text-teal-400">
+          <li>Year-long career development program focused on professional skills, mentorship, and career exploration.</li>
+          <li>Collaborated on projects addressing real-world challenges, gaining hands-on project management experience.</li>
+        </ul>
+      </div>
+
+      <!-- Apex Park and Recreation District -->
+      <div class="glass-card rounded-2xl p-6 shadow-2xl" data-aos="fade-up" data-aos-delay="200">
+        <div class="flex justify-between items-start flex-wrap gap-2 border-b border-teal-500/30 pb-3 mb-4">
+          <h3 class="text-xl font-bold text-white">Apex Park & Recreation District</h3>
+          <span class="text-xs bg-teal-950/70 px-3 py-1 rounded-full text-teal-300">Lifeguard Instructor Trainer</span>
+        </div>
+        <ul class="space-y-2 text-sm text-slate-300 list-disc list-inside marker:text-teal-400">
+          <li>Promoted from Lifeguard → Instructor Trainer within 3 years, reflecting strong leadership & performance.</li>
+          <li>Train & certify lifeguards in safety protocols, emergency response, and instructional standards.</li>
+          <li>Lead high-responsibility teams, ensuring compliance, risk management, and operational safety.</li>
         </ul>
       </div>
     </div>
   </section>
 
-  <!-- Projects -->
+  <!-- PROJECTS SECTION (with JJs V2 latest details) -->
   <section class="max-w-6xl mx-auto py-20 px-6" id="projects">
-    <h2 class="text-3xl font-bold mb-10 border-b border-teal-500 pb-2" data-aos="fade-right">Projects</h2>
-
-    <div class="glass p-6 rounded-2xl shadow-xl" data-aos="zoom-in">
-      <h3 class="text-xl font-semibold text-teal-400">JJs V2 Medical Inventory System</h3>
-      <p class="text-sm text-gray-400">Sep 2025 - Present</p>
-      <ul class="mt-4 space-y-2 text-gray-300 text-sm list-disc list-inside">
-        <li>Space-based medical inventory system for future missions.</li>
-        <li>AI assistant for inventory & low-level diagnostics.</li>
-        <li>Scalable deployment including Raspberry Pi support.</li>
-      </ul>
+    <div class="flex items-center gap-3 mb-10" data-aos="fade-right">
+      <div class="h-10 w-1.5 bg-teal-500 rounded-full"></div>
+      <h2 class="text-3xl md:text-4xl font-bold tracking-tight">Flagship Projects</h2>
     </div>
-  </section>
 
-  <!-- Skills -->
-  <section class="max-w-6xl mx-auto py-20 px-6">
-    <h2 class="text-3xl font-bold mb-10 border-b border-teal-500 pb-2" data-aos="fade-right">Skills</h2>
-
-    <div class="grid md:grid-cols-3 gap-6">
-      <div class="glass p-4 rounded-2xl text-center shadow-lg" data-aos="flip-left">Software Development</div>
-      <div class="glass p-4 rounded-2xl text-center shadow-lg" data-aos="flip-left" data-aos-delay="50">Web Development</div>
-      <div class="glass p-4 rounded-2xl text-center shadow-lg" data-aos="flip-left" data-aos-delay="100">Interaction Design</div>
-      <div class="glass p-4 rounded-2xl text-center shadow-lg" data-aos="flip-left" data-aos-delay="150">Visual Design</div>
-      <div class="glass p-4 rounded-2xl text-center shadow-lg" data-aos="flip-left" data-aos-delay="200">Accessibility</div>
-      <div class="glass p-4 rounded-2xl text-center shadow-lg" data-aos="flip-left" data-aos-delay="250">Backend</div>
-      <div class="glass p-4 rounded-2xl text-center shadow-lg" data-aos="flip-left" data-aos-delay="300">HTML / CSS / JS</div>
-      <div class="glass p-4 rounded-2xl text-center shadow-lg" data-aos="flip-left" data-aos-delay="350">React / Vue</div>
-      <div class="glass p-4 rounded-2xl text-center shadow-lg" data-aos="flip-left" data-aos-delay="400">Python / C# / Rust</div>
-    </div>
-  </section>
-
-  <!-- Education -->
-  <section class="max-w-6xl mx-auto py-20 px-6">
-    <h2 class="text-3xl font-bold mb-10 border-b border-teal-500 pb-2" data-aos="fade-right">Education</h2>
-
-    <div class="space-y-6">
-      <div class="glass p-6 rounded-2xl shadow-xl" data-aos="fade-up">
-        <h3 class="text-lg font-semibold">Jefferson County Open Secondary</h3>
-        <p class="text-sm text-gray-400">High School - Senior (Aug 2022 - May 2026)</p>
+    <div class="grid md:grid-cols-2 gap-8">
+      <!-- JJs V2 Medical Inventory System (full latest info) -->
+      <div class="glass-card rounded-2xl p-7 shadow-2xl md:col-span-2 lg:col-span-1" data-aos="zoom-in-up">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-2 h-2 bg-teal-400 rounded-full animate-pulse"></div>
+          <span class="text-teal-400 text-xs tracking-wider uppercase font-semibold">ACTIVE MISSION CRITICAL</span>
+        </div>
+        <h3 class="text-2xl font-bold text-white">JJs V2 Medical Inventory System</h3>
+        <p class="text-gray-400 text-sm mt-1 mb-4">Space-based medical inventory for future missions (Artemis / Gateway)</p>
+        <ul class="space-y-3 text-sm text-slate-300 list-disc list-inside marker:text-teal-400">
+          <li>Building scalable, space-oriented inventory platform with AI-assisted diagnostics &amp; low-level triage suggestions.</li>
+          <li>Optimized for low-resource hardware — <strong class="text-teal-300">Raspberry Pi deployment</strong> ready for edge compute in constrained environments.</li>
+          <li>Modular service architecture separating AI inference (Python + ONNX) from core inventory logic (PostgreSQL + FastAPI).</li>
+          <li>Currently integrating with NASA Hunch test infrastructure, supporting medical supply chains for Artemis II simulation.</li>
+        </ul>
+        <div class="mt-5 flex flex-wrap gap-2">
+          <span class="bg-teal-500/10 text-teal-300 text-xs px-3 py-1 rounded-full">AI Diagnostics</span>
+          <span class="bg-teal-500/10 text-teal-300 text-xs px-3 py-1 rounded-full">Raspberry Pi</span>
+          <span class="bg-teal-500/10 text-teal-300 text-xs px-3 py-1 rounded-full">PostgreSQL</span>
+          <span class="bg-teal-500/10 text-teal-300 text-xs px-3 py-1 rounded-full">Modular Architecture</span>
+        </div>
       </div>
-      <div class="glass p-6 rounded-2xl shadow-xl" data-aos="fade-up" data-aos-delay="150">
-        <h3 class="text-lg font-semibold">Warren Tech Central</h3>
-        <p class="text-sm text-gray-400">Computer Science, Cybersecurity & Machine Learning (Aug 2024 - May 2026)</p>
+
+      <!-- Additional project context: mention other notable work from resume -->
+      <div class="glass-card rounded-2xl p-7 shadow-2xl flex flex-col justify-center" data-aos="zoom-in-up" data-aos-delay="100">
+        <h3 class="text-xl font-bold text-white flex items-center gap-2">🛰️ Medical AI Assistant</h3>
+        <p class="text-gray-300 text-sm mt-3">Trained on ~400 hours of medical datasets → inventory analysis + preliminary diagnostic classification with verified <span class="font-bold text-teal-300">80%+ test accuracy</span>. Integrated within NASA medical inventory pipeline.</p>
+        <div class="mt-4 h-1.5 w-full bg-slate-700 rounded-full overflow-hidden">
+          <div class="w-4/5 h-full bg-teal-500 rounded-full"></div>
+        </div>
+        <p class="text-right text-teal-300 text-xs mt-1">Accuracy benchmark >80%</p>
       </div>
     </div>
+
+    <!-- extra project : Web & AI synergy -->
+    <div class="mt-8 glass-card rounded-2xl p-6" data-aos="fade-up">
+      <div class="flex flex-wrap justify-between items-center gap-3">
+        <div>
+          <h3 class="text-lg font-semibold text-white">🔐 NFC inventory + RBAC integration</h3>
+          <p class="text-sm text-slate-400">Secure authentication & scanning modules for seamless hardware-level tracking.</p>
+        </div>
+        <div class="text-teal-300 text-sm font-mono">Python · NFCpy · JWT roles</div>
+      </div>
+    </div>
   </section>
 
-  <footer class="text-center py-10 text-gray-500 text-sm">
-    © 2026 Josiah Ehrler.
+  <!-- SKILLS SECTION (expanded and true to developer stack) -->
+  <section class="max-w-6xl mx-auto py-20 px-6">
+    <div class="flex items-center gap-3 mb-10" data-aos="fade-right">
+      <div class="h-10 w-1.5 bg-teal-500 rounded-full"></div>
+      <h2 class="text-3xl md:text-4xl font-bold tracking-tight">Technical Arsenal</h2>
+    </div>
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+      <div class="glass-card p-4 rounded-2xl text-center font-medium text-sm backdrop-blur" data-aos="flip-left">🐍 Python / FastAPI</div>
+      <div class="glass-card p-4 rounded-2xl text-center font-medium text-sm backdrop-blur" data-aos="flip-left" data-aos-delay="30">🗄️ PostgreSQL / SQL</div>
+      <div class="glass-card p-4 rounded-2xl text-center font-medium text-sm backdrop-blur" data-aos="flip-left" data-aos-delay="60">🤖 AI/ML (PyTorch, scikit)</div>
+      <div class="glass-card p-4 rounded-2xl text-center font-medium text-sm backdrop-blur" data-aos="flip-left" data-aos-delay="90">⚛️ React / Vue</div>
+      <div class="glass-card p-4 rounded-2xl text-center font-medium text-sm backdrop-blur" data-aos="flip-left" data-aos-delay="120">🌐 HTML5 / Tailwind / CSS3</div>
+      <div class="glass-card p-4 rounded-2xl text-center font-medium text-sm backdrop-blur" data-aos="flip-left" data-aos-delay="150">🦀 Rust / C#</div>
+      <div class="glass-card p-4 rounded-2xl text-center font-medium text-sm backdrop-blur" data-aos="flip-left" data-aos-delay="180">🔐 RBAC / JWT / Auth</div>
+      <div class="glass-card p-4 rounded-2xl text-center font-medium text-sm backdrop-blur" data-aos="flip-left" data-aos-delay="210">📡 NFC integration</div>
+      <div class="glass-card p-4 rounded-2xl text-center font-medium text-sm backdrop-blur" data-aos="flip-left" data-aos-delay="240">☁️ Git / CI workflows</div>
+      <div class="glass-card p-4 rounded-2xl text-center font-medium text-sm backdrop-blur" data-aos="flip-left" data-aos-delay="270">🎮 Game Network Architecture</div>
+    </div>
+  </section>
+
+  <!-- EDUCATION + CERTIFICATIONS (exact from resume: Warren Tech + JCOS) -->
+  <section class="max-w-6xl mx-auto py-16 px-6">
+    <div class="flex items-center gap-3 mb-10" data-aos="fade-right">
+      <div class="h-10 w-1.5 bg-teal-500 rounded-full"></div>
+      <h2 class="text-3xl md:text-4xl font-bold tracking-tight">Education & Development</h2>
+    </div>
+    <div class="grid md:grid-cols-2 gap-7">
+      <div class="glass-card rounded-2xl p-6" data-aos="fade-up">
+        <div class="flex justify-between items-start flex-wrap">
+          <h3 class="text-xl font-bold text-white">Jefferson County Open Secondary</h3>
+          <span class="bg-slate-800 text-teal-300 text-xs px-3 py-1 rounded-full">Senior</span>
+        </div>
+        <p class="text-slate-400 text-sm mt-1">High School Diploma track | Aug 2022 – May 2026</p>
+        <p class="text-slate-300 text-sm mt-3">Emphasis on advanced STEM, independent research, and leadership.</p>
+      </div>
+      <div class="glass-card rounded-2xl p-6" data-aos="fade-up" data-aos-delay="100">
+        <div class="flex justify-between items-start flex-wrap">
+          <h3 class="text-xl font-bold text-white">Warren Tech Central</h3>
+          <span class="bg-slate-800 text-teal-300 text-xs px-3 py-1 rounded-full">Specialized Program</span>
+        </div>
+        <p class="text-slate-400 text-sm mt-1">Computer Science, Cybersecurity & Machine Learning | Aug 2024 – May 2026</p>
+        <p class="text-slate-300 text-sm mt-3">Hands-on labs: offensive security, neural network fundamentals, Python for ML, and secure system design.</p>
+      </div>
+    </div>
+    <!-- extra highlight from resume: leadership and training -->
+    <div class="mt-8 glass-card rounded-2xl p-5 text-center" data-aos="fade-up">
+      <p class="text-teal-300 font-medium">🏅 Instructor Trainer Certification · American Red Cross · Emergency Response & Risk Management</p>
+      <p class="text-slate-400 text-sm mt-1">3-year rapid advancement: Lifeguard → Instructor Trainer, leading safety protocols across facilities.</p>
+    </div>
+  </section>
+
+  <!-- Achievement highlight: gaming network milestone -->
+  <section class="max-w-6xl mx-auto px-6 pb-16">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-5 text-center">
+      <div class="glass-card p-5 rounded-2xl" data-aos="zoom-in">
+        <div class="text-3xl font-black text-teal-400">4.4M</div>
+        <div class="text-xs uppercase tracking-wider text-slate-400 mt-1">Lifetime logins (flagship server)</div>
+        <div class="text-slate-500 text-xs">Independent Gaming Network</div>
+      </div>
+      <div class="glass-card p-5 rounded-2xl" data-aos="zoom-in" data-aos-delay="70">
+        <div class="text-3xl font-black text-teal-400">5</div>
+        <div class="text-xs uppercase tracking-wider text-slate-400 mt-1">Scaled servers</div>
+        <div class="text-slate-500 text-xs">5k–20k active players each</div>
+      </div>
+      <div class="glass-card p-5 rounded-2xl" data-aos="zoom-in" data-aos-delay="140">
+        <div class="text-3xl font-black text-teal-400">400h+</div>
+        <div class="text-xs uppercase tracking-wider text-slate-400 mt-1">Medical AI training data</div>
+        <div class="text-slate-500 text-xs">80%+ diagnostic accuracy</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER (contact & updated-year) -->
+  <footer class="border-t border-slate-800/60 bg-slate-950/80 mt-10 py-12 text-center text-slate-500 text-sm">
+    <div class="max-w-5xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4">
+      <div>© 2026 Josiah Ehrler — Software, AI & Web Developer</div>
+      <div class="flex gap-6 text-slate-400 text-xs font-mono">
+        <span>jehrler2007@gmail.com</span>
+        <span>www.jehrlcr.com</span>
+        <span>+1 (720) 600 3804</span>
+      </div>
+    </div>
+    <div class="mt-5 text-[11px] text-slate-600">Built with Tailwind · Fully integrated resume data: NASA Hunch AI system, gaming network 4.4M logins, JJs V2 medical inventory</div>
   </footer>
 
   <script>
-    AOS.init({ duration: 1000, once: true });
+    AOS.init({ duration: 750, once: true, offset: 20 });
+    // additional small hover effect for interactive cards
+    const cards = document.querySelectorAll('.glass-card');
+    cards.forEach(card => {
+      card.addEventListener('mouseenter', () => {
+        card.style.transition = 'all 0.2s ease';
+      });
+    });
   </script>
-
 </body>
 </html>
